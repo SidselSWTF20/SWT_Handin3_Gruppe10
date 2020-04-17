@@ -4,7 +4,7 @@ namespace MicrowaveOvenClasses.Boundary
 {
     public class Light : ILight
     {
-        private IOutput myOutput;
+        private IOutput myOutput;   //prøver at pushe noget.
         private bool isOn = false;
         
         public Light(IOutput output)
