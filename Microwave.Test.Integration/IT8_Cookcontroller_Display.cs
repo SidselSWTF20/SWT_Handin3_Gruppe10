@@ -21,6 +21,7 @@ namespace Microwave.Test.Integration
 
         private IPowerTube _powertube; //Stubbet modul
         private ITimer _timer; //Stubbet modul
+        private IUserInterface _userinterface; //Stubbet modul
 
         [SetUp]
 
@@ -28,40 +29,37 @@ namespace Microwave.Test.Integration
         {
             _timer = Substitute.For<ITimer>();
             _powertube = Substitute.For<IPowerTube>();
+            _userinterface = Substitute.For<IUserInterface>();
 
             _display = new Display(_output);
             _output = new Output();
-            _sut = new CookController(_timer, _display, _powertube);
+            _sut = new CookController(_timer, _display, _powertube, _userinterface);
 
-        }
-        [Test]
-        public void StartCooking_ValidParameters_PowerTubeStarted()
-        {
-            uut.StartCooking(50, 60);
-
-            powerTube.Received().TurnOn(50);
         }
 
         [Test]
         public void Cooking_TimerTick_DisplayCalled()
         {
-            uut.StartCooking(50, 60);
+            _sut.StartCooking(50, 60);
 
-            timer.TimeRemaining.Returns(115);
-            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+            _timer.TimeRemaining.Returns(115);
+            _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
 
-            display.Received().ShowTime(1, 55);
+            _display.Received().ShowTime(1, 55);
         }
 
         [Test]
-        public void Cooking_TimerExpired_PowerTubeOff()
+        //vi skal have testet om display bliver kaldt korrekt. 
+        //jeg slettede de tests med powertube, for det skal ikke testes.
+        //man kan ikke bruge recieved på en "rigtig" kode, kun på substitutes - åbenbart..
+
+        public void DisplayIsCalledCorrect()
         {
-            uut.StartCooking(50, 60);
+            _display.ShowTime(50, 60);
 
-            timer.Expired += Raise.EventWith(this, EventArgs.Empty);
-
-            powerTube.Received().TurnOff();
+            _display.Received(1);
         }
+
     }
 }
 

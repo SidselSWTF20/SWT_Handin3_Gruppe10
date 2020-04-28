@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IT5_DisplayOutput.cs" />
     <Compile Include="IT8_Cookcontroller_Display.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
