@@ -11,26 +11,29 @@ using MicrowaveOvenClasses.Interfaces;
 
 namespace Microwave.Test.Integration
 {
+
     [TestFixture]
-    class IT8_Cookcontroller_Powertube
+    class IT9_Cookcontroller_Display
     {
         private CookController _sut;
-        private PowerTube _powertube;
+        private PowerTube _powertube; 
+
+        private Display _display;
         private Output _output;
 
         private ITimer _timer;
-        private IDisplay _display; //dette skal være en rigtig klasse istedet for en stub
 
         [SetUp]
 
-        public void Setup()
+        public void SetUp()
         {
             _timer = Substitute.For<ITimer>();
-            _display = Substitute.For<IDisplay>();
+            _powertube = Substitute.For<IPowerTube>();
 
             _sut = new CookController(_timer, _display, _powertube);
-            _powertube = new PowerTube(_output);
+            _display = new Display(_output);
             _output = new Output();
         }
     }
 }
+
