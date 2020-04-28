@@ -18,6 +18,7 @@ namespace Microwave.Test.Integration
         private Display _sut;
         private Output _output;
 
+
         [SetUp]
 
         public void SetUp()
@@ -33,7 +34,7 @@ namespace Microwave.Test.Integration
         public void OutputIsCorrect_Time()
         {
             _sut.ShowTime(10, 50);
-            _output.OutputLine(Arg.Is<string>(str => str.Contains("10:50")));
+            
         }
 
         [Test]
