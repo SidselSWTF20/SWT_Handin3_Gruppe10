@@ -59,11 +59,6 @@
   <ItemGroup>
     <Compile Include="IT10_Cookcontroller_Timer.cs" />
     <Compile Include="IT11_UI_Cookcontroller.cs" />
-    <Compile Include="IT1_Door.cs" />
-    <Compile Include="IT2_Button.cs" />
-    <Compile Include="IT3_UI_Light.cs" />
-    <Compile Include="IT4_UI_Display.cs" />
-    <Compile Include="IT5_Display_Output.cs" />
     <Compile Include="IT6_Powertube_Output.cs" />
     <Compile Include="IT7_Light_Output.cs" />
     <Compile Include="IT8_Cookcontroller_Powertube.cs" />

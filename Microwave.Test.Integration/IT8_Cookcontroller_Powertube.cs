@@ -19,7 +19,7 @@ namespace Microwave.Test.Integration
         private Output _output;
 
         private ITimer _timer;
-        private IDisplay _display;
+        private IDisplay _display; //dette skal være en rigtig klasse istedet for en stub
 
         [SetUp]
 

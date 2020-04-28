@@ -15,7 +15,8 @@ namespace Microwave.Test.Integration
     class IT9_Cookcontroller_Display
     {
         private CookController _sut;
-        private PowerTube _powertube;
+        private PowerTube _powertube; //skal være en stub
+        /// </summary>
         private Display _display;
         private Output _output;
 
