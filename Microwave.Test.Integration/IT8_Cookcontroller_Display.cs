@@ -13,15 +13,14 @@ namespace Microwave.Test.Integration
 {
 
     [TestFixture]
-    class IT9_Cookcontroller_Display
+    class IT8_Cookcontroller_Display
     {
-        private CookController _sut;
-        private PowerTube _powertube; 
+        private CookController _sut; //System under test
+        private Display _display; //Modul implementeret med kode
+        private Output _output; //Modul implementeret med kode
 
-        private Display _display;
-        private Output _output;
-
-        private ITimer _timer;
+        private IPowerTube _powertube; //Stubbet modul
+        private ITimer _timer; //Stubbet modul
 
         [SetUp]
 
@@ -30,9 +29,10 @@ namespace Microwave.Test.Integration
             _timer = Substitute.For<ITimer>();
             _powertube = Substitute.For<IPowerTube>();
 
-            _sut = new CookController(_timer, _display, _powertube);
             _display = new Display(_output);
             _output = new Output();
+            _sut = new CookController(_timer, _display, _powertube);
+
         }
     }
 }

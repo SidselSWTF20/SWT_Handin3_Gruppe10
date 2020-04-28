@@ -57,8 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IT8_Cookcontroller_Powertube.cs" />
-    <Compile Include="IT9_Cookcontroller_Display.cs" />
+    <Compile Include="IT8_Cookcontroller_Display.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
