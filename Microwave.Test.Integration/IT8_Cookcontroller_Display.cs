@@ -34,6 +34,34 @@ namespace Microwave.Test.Integration
             _sut = new CookController(_timer, _display, _powertube);
 
         }
+        [Test]
+        public void StartCooking_ValidParameters_PowerTubeStarted()
+        {
+            uut.StartCooking(50, 60);
+
+            powerTube.Received().TurnOn(50);
+        }
+
+        [Test]
+        public void Cooking_TimerTick_DisplayCalled()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(115);
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+            display.Received().ShowTime(1, 55);
+        }
+
+        [Test]
+        public void Cooking_TimerExpired_PowerTubeOff()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.Expired += Raise.EventWith(this, EventArgs.Empty);
+
+            powerTube.Received().TurnOff();
+        }
     }
 }
 
