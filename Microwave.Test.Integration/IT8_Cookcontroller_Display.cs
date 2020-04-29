@@ -9,11 +9,12 @@ using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 
+
 namespace Microwave.Test.Integration
 {
-
     [TestFixture]
-    class IT8_Cookcontroller_Display
+
+    public class IT8_Cookcontroller_Display
     {
         private CookController _sut; //System under test
         private Display _display; //Modul implementeret med kode

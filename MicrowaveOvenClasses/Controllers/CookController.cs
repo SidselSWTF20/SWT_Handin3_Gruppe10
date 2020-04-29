@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using MicrowaveOvenClasses.Interfaces;
 
 namespace MicrowaveOvenClasses.Controllers
@@ -14,6 +15,9 @@ namespace MicrowaveOvenClasses.Controllers
         private IDisplay myDisplay;
         private IPowerTube myPowerTube;
         private ITimer myTimer;
+        private Timer timer;
+        private IDisplay display;
+        private IPowerTube powertube;
 
         public CookController(
             ITimer timer,
@@ -35,6 +39,13 @@ namespace MicrowaveOvenClasses.Controllers
 
             timer.Expired += new EventHandler(OnTimerExpired);
             timer.TimerTick += new EventHandler(OnTimerTick);
+        }
+
+        public CookController(Timer timer, IDisplay display, IPowerTube powertube)
+        {
+            this.timer = timer;
+            this.display = display;
+            this.powertube = powertube;
         }
 
         public void StartCooking(int power, int time)
