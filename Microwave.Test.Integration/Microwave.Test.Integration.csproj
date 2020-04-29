@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="IT5_CookControllerTimer.cs" />
     <Compile Include="IT6_CookControllerDisplay.cs" />
-    <Compile Include="IT8_Cookcontroller_Display.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

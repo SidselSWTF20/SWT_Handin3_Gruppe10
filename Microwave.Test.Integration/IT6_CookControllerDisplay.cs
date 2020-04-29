@@ -42,27 +42,19 @@ namespace Microwave.Test.Integration
         [TestCase(0, "00:00")]
         [TestCase(10, "00:10")]
         [TestCase(120, "02:00")]
-        [TestCase(5999, "99:59")] //denne case er jeg ikke enig i. skal vi ikke slette den? /Sarah
-        public void showTime_showWithMinAndSec_outputContainsCorrectMinAndSec(int time, string expected)
+        public void showTime_MinAndSec_OutputContainsCorrectMinAndSec(int time, string expected)
         {
             _sut.StartCooking(350, time);
             _sut.OnTimerTick(this, EventArgs.Empty);
             _output.Received().OutputLine(Arg.Is<string>(s => s.Contains((expected))));
         }
 
-        //[TestCase(6000, "10:00")] DETTE ER KOMMENTERET I RAPPORTEN (det er denne fejl du talte om. Sarah: Jeg ved ikke om vi skal tage det med også?
-        [TestCase(6000, "100:00")]
-        public void showTime_showWithMinAndSec_outputContainsTooHighMinAndSEC(int time, string expected)
-        {
-            _sut.StartCooking(350, time);
-            _sut.OnTimerTick(this, EventArgs.Empty);
-            _output.Received().OutputLine(Arg.Is<string>(s => s.Contains((expected))));
-        }
 
         [TestCase(10, "00:05")]
         [TestCase(120, "01:55")]
         [TestCase(5999, "99:54")]
-        public void showTime_showWithMinAndSecAfter5Seconds_outputContainsCorrectMinAndSec(int time, string expected)
+        //Ved denne test blev det tydeligt, at der er en fejl i Timer
+        public void ShowTime_MinAndSecAfter5Seconds_OutputContainsCorrectMinAndSec(int time, string expected)
         {
             _sut.StartCooking(350, time);
             _sut.OnTimerTick(this, EventArgs.Empty);

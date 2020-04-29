@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
-using NSubstitute;
 using NUnit.Framework;
-using Timer = System.Threading.Timer;
+using NSubstitute;
+using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
@@ -33,20 +34,20 @@ namespace Microwave.Test.Integration
             _powertube = Substitute.For<IPowerTube>();
 
 
-            _timer = new Timer(); //jeg ved ikke om den skal have parametre med her?
+            _timer = new Timer(); 
             _sut = new CookController(_timer, _display, _powertube);
             _sut.UI = _userinterface;
 
         }
-        [TestCase(800, 22, 55)]
-        [TestCase(600, 45, 55)]
-        [TestCase(400, 12, 55)]
-        [TestCase(80, 0, 55)]
-        [TestCase(20, 0, 25)]
+        [TestCase(1380, 22, 55)]
+        [TestCase(2800, 45, 55)]
+        [TestCase(800, 12, 55)]
+        [TestCase(60, 0, 55)]
+        [TestCase(30, 0, 25)]
 
-        public void StartCooking_WaitingFiveSeconds_CheckingTimeCorrect(int s1, int min, int sec)
+        public void StartCooking_WaitingFiveSeconds_CheckIfTimeIsCorrect(int s1, int min, int sec)
         {
-            _sut.StartCooking(333, s1);
+            _sut.StartCooking(400, s1);
 
             ManualResetEvent pause = new ManualResetEvent(false);
             pause.WaitOne(5100);
@@ -56,12 +57,10 @@ namespace Microwave.Test.Integration
         }
 
         [TestCase(4)]
-        [TestCase(3)]
-        [TestCase(2)]
         [TestCase(1)]
-        public void StartCooking_WaitFiveSeconds_TimeExpired_TurnOff(int s1)
+        public void StartCooking_WaitFiveSeconds_TimeExpired_CheckTurnOff_Powertube(int s1)
         {
-            _sut.StartCooking(333, s1);
+            _sut.StartCooking(400, s1);
 
             ManualResetEvent pause = new ManualResetEvent(false);
             pause.WaitOne(5100);
@@ -74,9 +73,9 @@ namespace Microwave.Test.Integration
         [TestCase(10)]
         [TestCase(9)]
         [TestCase(6)]
-        public void StartCooking_WaitFiveSeconds_TimeNotExpired(int s1)
+        public void StartCooking_WaitFiveSeconds_TimeNotExpired_PTNotTurnOff(int s1)
         {
-            _sut.StartCooking(333, s1);
+            _sut.StartCooking(400, s1);
 
             ManualResetEvent pause = new ManualResetEvent(false);
             pause.WaitOne(5100);
@@ -85,12 +84,10 @@ namespace Microwave.Test.Integration
         }
 
         [TestCase(4)]
-        [TestCase(3)]
-        [TestCase(2)]
         [TestCase(1)]
-        public void StartCooking_WaitFiveSeconds_TimeExpired_CookingDone(int s1)
+        public void StartCooking_WaitFiveSeconds_TimeExpired_UI_CookingDone(int s1)
         {
-            _sut.StartCooking(333, s1);
+            _sut.StartCooking(400, s1);
 
             ManualResetEvent pause = new ManualResetEvent(false);
             pause.WaitOne(5100);
@@ -102,9 +99,9 @@ namespace Microwave.Test.Integration
         [TestCase(10)]
         [TestCase(9)]
         [TestCase(6)]
-        public void StartCooking_WaitFiveSeconds_TimeNotExpired_CookingNotDone(int s1)
+        public void StartCooking_WaitFiveSeconds_TimeNotExpired_UT_CookingNotDone(int s1)
         {
-            _sut.StartCooking(333, s1);
+            _sut.StartCooking(400, s1);
 
             ManualResetEvent pause = new ManualResetEvent(false);
             pause.WaitOne(5100);
