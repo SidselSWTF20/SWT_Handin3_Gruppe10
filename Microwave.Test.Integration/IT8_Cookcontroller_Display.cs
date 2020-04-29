@@ -38,28 +38,57 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void Cooking_TimerTick_DisplayCalled()
+
+        //Tester om der smides exeption, når der ikke er noget event
+
+        public void OnTimerTickNot_DoesThrow()
         {
-            _sut.StartCooking(50, 60);
 
-            _timer.TimeRemaining.Returns(115);
-            _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
-
-            _display.Received().ShowTime(1, 55);
+            Assert.That(() => _sut.OnTimerTick(this, EventArgs.Empty), Throws.Exception);
         }
 
         [Test]
-        //vi skal have testet om display bliver kaldt korrekt. 
-        //jeg slettede de tests med powertube, for det skal ikke testes.
-        //man kan ikke bruge recieved på en "rigtig" kode, kun på substitutes - åbenbart..
-
-        public void DisplayIsCalledCorrect()
+        //tester om der kommer korrekt output?? kan vi det?
+        public void StartCooking_Correctoutput()
         {
-            _display.ShowTime(50, 60);
+            _sut.StartCooking(50, 60);
 
-            _display.Received(1);
+
         }
 
-    }
+        [Test]
+
+        //Teste om der kaldes Ontimertick, ved startcooking. Det er i metoden Ontimertick, 
+        //At der kaldes til display. Hvis man kigger i koden. (Og også i sekvensdiagrammet). 
+        //Det er derfor den der skal testes.
+
+        public void Ontimertick_DisplayCalledCorrect(string line)
+        {
+            _sut.StartCooking(60, 50);
+            _timer.TimeRemaining.Returns(110);
+            _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+
+        }
+
+
+
+
+
+        //[Test]
+        //public void Cooking_TimerTick_DisplayCalled()
+        //{
+        //    _sut.StartCooking(50, 60);
+
+        //    _timer.TimeRemaining.Returns(115);
+        //    _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+        //    _display.ShowTime(1, 55);
+        //}
+
+
+
+    } 
 }
+
 
