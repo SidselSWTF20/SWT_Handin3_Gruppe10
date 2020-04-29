@@ -40,8 +40,8 @@ namespace Microwave.Test.Integration
 
         }
         [TestCase(1380, 22, 55)]
-        [TestCase(2800, 45, 55)]
-        [TestCase(800, 12, 55)]
+        [TestCase(2760, 45, 55)]
+        [TestCase(780, 12, 55)]
         [TestCase(60, 0, 55)]
         [TestCase(30, 0, 25)]
 
